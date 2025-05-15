@@ -83,5 +83,13 @@ namespace Warehouse.WEB.Controllers
       var productDetails = await _productService.GetProductDetailsAsync(id);
       return productDetails != null ? Ok(productDetails) : NotFound();
     }
+
+    // GET: api/products/order/{orderId}
+    [HttpGet("order/{orderId:int}")]
+    public async Task<ActionResult<IEnumerable<DTOProduct>>> GetProductsByOrder(int orderId)
+    {
+      var products = await _productService.GetProductsByOrderIdAsync(orderId);
+      return Ok(products);
+    }
   }
 }
