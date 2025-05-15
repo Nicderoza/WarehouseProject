@@ -1,0 +1,123 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\A484\\Desktop\\30-04-25\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C55A76D1-277A-40CF-98CA-EBCE6BF2A6F3}|Warehouse\\Warehouse.WEB.csproj|c:\\users\\a484\\desktop\\30-04-25\\warehouse\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C55A76D1-277A-40CF-98CA-EBCE6BF2A6F3}|Warehouse\\Warehouse.WEB.csproj|solutionrelative:warehouse\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{334401B1-BAA9-45E6-BA1D-187400FA6960}|Warehouse.Interface\\Warehouse.Interfaces.csproj|c:\\users\\a484\\desktop\\30-04-25\\warehouse.interface\\irepositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{334401B1-BAA9-45E6-BA1D-187400FA6960}|Warehouse.Interface\\Warehouse.Interfaces.csproj|solutionrelative:warehouse.interface\\irepositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C55A76D1-277A-40CF-98CA-EBCE6BF2A6F3}|Warehouse\\Warehouse.WEB.csproj|c:\\users\\a484\\desktop\\30-04-25\\warehouse\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{C55A76D1-277A-40CF-98CA-EBCE6BF2A6F3}|Warehouse\\Warehouse.WEB.csproj|solutionrelative:warehouse\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07BC3C4F-CABA-4F73-872F-0F6CA027C3DD}|Warehouse.Service\\Warehouse.Service.csproj|c:\\users\\a484\\desktop\\30-04-25\\warehouse.service\\services\\cityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07BC3C4F-CABA-4F73-872F-0F6CA027C3DD}|Warehouse.Service\\Warehouse.Service.csproj|solutionrelative:warehouse.service\\services\\cityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A57C092-CCC8-4EBC-8B6C-E25B525A386D}|Warehouse.Data\\Warehouse.Data.csproj|c:\\users\\a484\\desktop\\30-04-25\\warehouse.data\\warehousecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A57C092-CCC8-4EBC-8B6C-E25B525A386D}|Warehouse.Data\\Warehouse.Data.csproj|solutionrelative:warehouse.data\\warehousecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A57C092-CCC8-4EBC-8B6C-E25B525A386D}|Warehouse.Data\\Warehouse.Data.csproj|c:\\users\\a484\\desktop\\30-04-25\\warehouse.data\\models\\orderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A57C092-CCC8-4EBC-8B6C-E25B525A386D}|Warehouse.Data\\Warehouse.Data.csproj|solutionrelative:warehouse.data\\models\\orderstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 149,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Interface\\IRepositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "Warehouse.Interface\\IRepositories\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Interface\\IRepositories\\IUserRepository.cs",
+              "RelativeToolTip": "Warehouse.Interface\\IRepositories\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T12:24:09.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse\\.gitignore",
+              "RelativeDocumentMoniker": "Warehouse\\.gitignore",
+              "ToolTip": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse\\.gitignore",
+              "RelativeToolTip": "Warehouse\\.gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-15T11:29:21.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse\\Program.cs",
+              "RelativeDocumentMoniker": "Warehouse\\Program.cs",
+              "ToolTip": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse\\Program.cs",
+              "RelativeToolTip": "Warehouse\\Program.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAkwAkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T10:33:54.254Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WarehouseContext.cs",
+              "DocumentMoniker": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Data\\WarehouseContext.cs",
+              "RelativeDocumentMoniker": "Warehouse.Data\\WarehouseContext.cs",
+              "ToolTip": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Data\\WarehouseContext.cs",
+              "RelativeToolTip": "Warehouse.Data\\WarehouseContext.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAcwGcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T10:32:07.311Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OrderStatus.cs",
+              "DocumentMoniker": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Data\\Models\\OrderStatus.cs",
+              "RelativeDocumentMoniker": "Warehouse.Data\\Models\\OrderStatus.cs",
+              "ToolTip": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Data\\Models\\OrderStatus.cs",
+              "RelativeToolTip": "Warehouse.Data\\Models\\OrderStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T10:31:31.313Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CityService.cs",
+              "DocumentMoniker": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Service\\Services\\CityService.cs",
+              "RelativeDocumentMoniker": "Warehouse.Service\\Services\\CityService.cs",
+              "ToolTip": "C:\\Users\\A484\\Desktop\\30-04-25\\Warehouse.Service\\Services\\CityService.cs",
+              "RelativeToolTip": "Warehouse.Service\\Services\\CityService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T08:42:50.746Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\bin\Debug\net7.0\Warehouse.Data.deps.json
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\bin\Debug\net7.0\Warehouse.Data.runtimeconfig.json
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\bin\Debug\net7.0\Warehouse.Data.dll
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\bin\Debug\net7.0\Warehouse.Data.pdb
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.csproj.AssemblyReference.cache
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.AssemblyInfoInputs.cache
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.AssemblyInfo.cs
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.csproj.CoreCompileInputs.cache
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.sourcelink.json
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.dll
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\refint\Warehouse.Data.dll
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.pdb
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\Warehouse.Data.genruntimeconfig.cache
+C:\Users\A484\Desktop\Warehouse\Warehouse.Data\obj\Debug\net7.0\ref\Warehouse.Data.dll
