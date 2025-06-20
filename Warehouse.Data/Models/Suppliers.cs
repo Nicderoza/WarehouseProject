@@ -1,18 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
-namespace Warehouse.Data.Models;
-
-public class Suppliers
+namespace Warehouse.Data.Models
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+  public class Suppliers
+  {
     public int SupplierID { get; set; }
+
+    public string CompanyName { get; set; } = string.Empty; 
     public int CityID { get; set; }
 
-    public string Name { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsActive { get; set; } = true;
 
-    public Cities City { get; set; }
-
-    public ICollection<Products> Products { get; set; }
+    public Cities? City { get; set; } 
+    public ICollection<Products> Products { get; set; } = new List<Products>();
+    public ICollection<UsersSuppliers> UsersSuppliers { get; set; } = new List<UsersSuppliers>();
+  }
 }

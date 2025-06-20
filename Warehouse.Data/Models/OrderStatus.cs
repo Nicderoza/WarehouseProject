@@ -1,20 +1,18 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using Warehouse.Data.Models;
 
-namespace Warehouse.Data.Models
+[Table("OrderStatus")]
+public class OrderStatus
 {
-  public class OrderStatus
-  {
-    [Key]
-    [Column("OrderStatusID")] // Mantieni il nome della colonna come "OrderStatusID"
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int OrderStatusID { get; set; } // Usa OrderStatusID per coerenza
+  [Key]
+  [Column("OrderStatusID")] 
+  public int OrderStatusID { get; set; } 
 
-    [Required]
-    [MaxLength(50)]
-    public string Description { get; set; }
+  [Required]
+  [MaxLength(50)]
+  [Column("StatusName")] 
+  public string StatusName { get; set; }
 
-    public virtual ICollection<Orders> Orders { get; set; }
-  }
+  public virtual ICollection<Orders> Orders { get; set; } = new List<Orders>();
 }
-

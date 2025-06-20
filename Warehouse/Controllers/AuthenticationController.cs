@@ -1,39 +1,130 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Warehouse.Service.Services; // Assuming your AuthenticationService is in this namespace
-using Warehouse.Data.Models; // Assuming your Users model is in this namespace
+using System.Security.Claims;
+using System.Net;
+using Warehouse.Common.DTOs;  
+using Warehouse.Interfaces.IServices;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AuthenticationController : ControllerBase
+namespace Warehouse.Controllers
 {
-  private readonly AuthenticationService _authenticationService;
-
-  public AuthenticationController(AuthenticationService authenticationService)
+  [ApiController]
+  [Route("api/[controller]")]   
+  public class AuthenticationController : ControllerBase
   {
-    _authenticationService = authenticationService;
-  }
+    private readonly IAuthenticationService _authenticationService;
+    private readonly IUserService _userService;
+    private readonly IRegistrationService _registrationService;   
 
-  [HttpPost("login")]
-  public async Task<IActionResult> Login(string email, string password)
-  {
-    var token = await _authenticationService.Authenticate(email, password);
-    if (token == null) // Changed the condition to check for null token
+    public AuthenticationController(IAuthenticationService authenticationService,
+                                    IUserService userService,
+                                    IRegistrationService registrationService)   
     {
-      return Unauthorized("Credenziali non valide."); // More generic error message
+      _authenticationService = authenticationService;
+      _userService = userService;
+      _registrationService = registrationService;
     }
-    return Ok(new { Token = token });
-  }
 
-  // Example action that might use GenerateJwtTokenAsync
-  [HttpPost("generateToken")]
-  public async Task<IActionResult> GenerateToken(string email)
-  {
-    var user = await _authenticationService.GetUserByEmailAsync(email);
-    if (user == null)
+    [HttpPost("login")] 
+    public async Task<IActionResult> Login([FromBody] DTOLogin loginDTO)
     {
-      return NotFound("User not found.");
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var response = await _authenticationService.LoginAsync(loginDTO);
+
+      if (!response.Success)
+      {
+        if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
+        {
+          return Unauthorized(response.Message);
+        }
+        if (response.StatusCode == (int)HttpStatusCode.BadRequest)
+        {
+          return BadRequest(response.Message);
+        }
+        return StatusCode(response.StatusCode ?? (int)HttpStatusCode.InternalServerError, response.Message);
+      }
+
+      // Se il login ha successo, potresti voler restituire non solo il token, ma anche i dati dell'utente (incluso il ruolo)
+      // Questo è fondamentale per il frontend per sapere chi è l'utente e quale ruolo ha.
+      // Il metodo LoginAsync nel tuo AuthenticationService dovrebbe restituire anche l'oggetto utente o un DTO contenente i dati dell'utente.
+      // Esempio (presupponendo che response.Data sia il token e response.User sia l'oggetto utente):
+      // return Ok(new { Token = response.Data, User = response.User });
+
+      // Per ora, ci atteniamo a quanto già presente, ma tieni a mente la necessità di inviare i dati utente
+      // per popolare il BehaviorSubject nel frontend.
+      return Ok(new { Token = response.Data });
     }
-    var token = await _authenticationService.GenerateJwtTokenAsync(user); // Line 37 is likely here or similar
-    return Ok(new { Token = token });
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] DTOCreateUser userDto)
+    {
+      bool success = await _registrationService.RegisterUser(userDto);
+
+      if (success)
+      {
+        return Ok(new { success = true, message = "User registered successfully." });
+      }
+      else
+      {
+        return BadRequest(new { success = false, message = "Registration failed." });
+      }
+    }
+
+
+
+    [HttpPost("register-supplier")] 
+    public async Task<IActionResult> RegisterSupplier([FromBody] DTORegisterSupplier supplierDto)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var success = await _registrationService.RegisterSupplier(supplierDto);
+
+      if (!success)
+      {
+        return BadRequest("Supplier registration failed. Email or company might already be in use.");
+      }
+
+      return Ok("Supplier registered successfully.");
+    }
+
+
+    [Authorize]
+    [HttpPost("change-password")] 
+    public async Task<IActionResult> ChangePassword([FromBody] DTOChangePassword changePasswordDTO)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
+      {
+        return Unauthorized("User ID not found or invalid in token claims.");
+      }
+
+      var response = await _userService.ChangePasswordAsync(userId, changePasswordDTO.CurrentPassword, changePasswordDTO.NewPassword);
+
+      if (!response.Success)
+      {
+        if (response.StatusCode == (int)HttpStatusCode.NotFound || response.StatusCode == (int)HttpStatusCode.Unauthorized)
+        {
+          return Unauthorized(response.Message);
+        }
+        if (response.StatusCode == (int)HttpStatusCode.BadRequest)
+        {
+          return BadRequest(response.Message);
+        }
+        return StatusCode(response.StatusCode ?? (int)HttpStatusCode.InternalServerError, response.Message);
+      }
+
+      return Ok(response.Message);
+    }
   }
 }

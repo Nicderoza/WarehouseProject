@@ -1,29 +1,33 @@
-using System.ComponentModel.DataAnnotations.Schema;
+using System; 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Warehouse.Data.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Users
+namespace Warehouse.Data.Models
 {
-  [Key]
-  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-  public int UserID { get; set; }
-  public int? RoleID { get; set; }
-  [Required]
-  [StringLength(100)]
-  public string Name { get; set; }
-  [Required]
-  [StringLength(100)]
-  public string Surname { get; set; }
-  [EmailAddress]
-  [Required]
-  public string Email { get; set; }
-  [Required]
-  [StringLength(255)] // Adjust length as needed
-  public string PasswordHash { get; set; }
-  [DataType(DataType.Date)]
-  public DateTime BirthDate { get; set; }
-  public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
-  public ICollection<Orders> Orders { get; set; } = new HashSet<Orders>();
-  public Roles? Role { get; set; }
-  public bool IsActive { get; set; } = true;
+  public class Users
+  {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int UserID { get; set; }
+
+    public int RoleID { get; set; }
+
+    public required string Name { get; set; }
+    public required string Surname { get; set; }
+    public required string Email { get; set; }
+
+    public string PasswordHash { get; set; } = string.Empty;
+
+    public DateTime BirthDate { get; set; }
+    public DateTime CreatedAt { get; set; } 
+
+    public ICollection<Orders> Orders { get; set; } = new List<Orders>();
+    public Roles? Role { get; set; }
+    public bool IsActive { get; set; } = true;
+
+    public ICollection<UsersSuppliers> UsersSuppliers { get; set; } = new List<UsersSuppliers>();
+    public virtual Cart Cart { get; set; } // Proprietà di navigazione al carrello
+
+  }
 }

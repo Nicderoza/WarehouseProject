@@ -1,25 +1,24 @@
+// Warehouse.Common.DTOs/DTOCreateUser.cs
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Warehouse.Common.DTOs
+public class DTOCreateUser
 {
-  public class DTOCreateUser
-  {
-    [Required]
-    public string Name { get; set; }
+  [Required]
+  [EmailAddress]
+  public string Email { get; set; }
 
-    [Required]
-    public string Surname { get; set; }
+  [Required]
+  [MinLength(6)]
+  public string Password { get; set; }
 
-    [EmailAddress]
-    [Required]
-    public string Email { get; set; }
+  [Required]
+  public string Name { get; set; }    // Sarà popolato da FirstName del gestore
+  [Required]
+  public string Surname { get; set; } // Sarà popolato da LastName del gestore
 
-    [Required]
-    [MinLength(8)] // Esempio di validazione
-    public string Password { get; set; }
+  public DateTime? BirthDate { get; set; }
 
-    // Altre proprietà necessarie per la creazione
-    public int? RoleID { get; set; }
-    public DateTime BirthDate { get; set; }
-  }
+  [Required]
+  public int RoleID { get; set; }
 }

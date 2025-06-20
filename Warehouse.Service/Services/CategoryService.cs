@@ -8,7 +8,6 @@ using Warehouse.Interfaces.IServices;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using Warehouse.Services.Services;
 
 namespace Warehouse.Service.Services
 {

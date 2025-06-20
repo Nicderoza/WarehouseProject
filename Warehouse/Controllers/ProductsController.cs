@@ -91,5 +91,16 @@ namespace Warehouse.WEB.Controllers
       var products = await _productService.GetProductsByOrderIdAsync(orderId);
       return Ok(products);
     }
+
+    [HttpGet("by-user/{userId}")]
+    public async Task<ActionResult<IEnumerable<DTOProduct>>> GetProductsByUserSupplier(int userId)
+    {
+      var products = await _productService.GetProductsByUserSupplierAsync(userId);
+      if (products == null || !products.Any())
+        return NotFound("Nessun prodotto trovato per l'utente");
+
+      return Ok(products);
+    }
+
   }
 }

@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Warehouse.Common.DTOs;
 using Warehouse.Interfaces.IServices;
-using System.Threading.Tasks;
 
 namespace Warehouse.WEB.Controllers
 {

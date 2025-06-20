@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Warehouse.Common.DTOs;
-using Warehouse.Interfaces.IServices;
 using Warehouse.Common.Responses;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Warehouse.Data.Interfaces;
+using Warehouse.Data.Models;
+using Warehouse.Interfaces.IServices;
 
 namespace Warehouse.WEB.Controllers
 {
@@ -12,10 +13,14 @@ namespace Warehouse.WEB.Controllers
   public class SuppliersController : ControllerBase
   {
     private readonly ISupplierService _supplierService;
+    private readonly IUsersSuppliersRepository _usersSuppliersRepository;
 
-    public SuppliersController(ISupplierService supplierService)
+    public SuppliersController(
+        ISupplierService supplierService,
+        IUsersSuppliersRepository usersSuppliersRepository)
     {
       _supplierService = supplierService;
+      _usersSuppliersRepository = usersSuppliersRepository;
     }
 
     // GET: api/suppliers
@@ -33,7 +38,6 @@ namespace Warehouse.WEB.Controllers
       }
     }
 
-    // GET: api/suppliers/{id}
     [HttpGet("{id}")]
     public async Task<ActionResult<DTOSupplier>> GetSupplierById(int id)
     {
@@ -52,7 +56,6 @@ namespace Warehouse.WEB.Controllers
       }
     }
 
-    // GET: api/suppliers/city/{cityId}
     [HttpGet("ByCity/{cityId}")]
     public async Task<ActionResult<IEnumerable<DTOSupplier>>> GetSuppliersByCity(int cityId)
     {
@@ -67,7 +70,6 @@ namespace Warehouse.WEB.Controllers
       }
     }
 
-    // POST: api/suppliers
     [HttpPost]
     public async Task<ActionResult<DTOSupplier>> CreateSupplier([FromBody] DTOSupplier supplierDto)
     {
@@ -117,7 +119,6 @@ namespace Warehouse.WEB.Controllers
       }
     }
 
-    // DELETE: api/suppliers/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteSupplier(int id)
     {
@@ -137,5 +138,71 @@ namespace Warehouse.WEB.Controllers
         return BadRequest(ErrorControl.GetErrorMessage(ErrorType.GeneralError));
       }
     }
-  }
-}
+    [HttpPost("register-or-use")]
+    public async Task<ActionResult<BaseResponse<DTOSupplier>>> RegisterOrUseSupplier([FromBody] DTOSupplier dto)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+      var existing = await _supplierService.GetByNameAsync(dto.CompanyName);
+      if (existing != null)
+      {
+        return Ok(new BaseResponse<DTOSupplier>
+        {
+          Success = true,
+          Message = "Fornitore già esistente, riutilizzato.",
+          Data = existing
+        });
+      }
+      var created = await _supplierService.AddAsync(dto);
+      return CreatedAtAction(nameof(GetSupplierById), new { id = created.Data.SupplierID }, created);
+    }
+    [HttpDelete("associate")]
+    public async Task<IActionResult> DeleteUserSupplierAssociation([FromQuery] int userId, [FromQuery] int supplierId)
+    {
+      await _usersSuppliersRepository.DeleteUsersSuppliersAsync(userId, supplierId);
+      return Ok("Associazione eliminata.");
+    }
+    [HttpPost("associate")]
+    public async Task<IActionResult> AssociateUserToSupplier([FromBody] DTOSupplierUser dto)
+    {
+      var existing = await _usersSuppliersRepository
+          .GetUsersSuppliersByIdAsync(dto.UserID, dto.SupplierID);
+
+      if (existing != null)
+        return Conflict("Associazione già esistente.");
+
+      var newLink = new UsersSuppliers
+      {
+        UserID = dto.UserID,
+        SupplierID = dto.SupplierID
+      };
+
+      await _usersSuppliersRepository.AddUsersSuppliersAsync(newLink);
+      return Ok("Associazione creata con successo.");
+    }
+
+
+    [HttpGet("by-user/{userId}/id")]
+    public async Task<IActionResult> GetSupplierIdByUserId(int userId)
+    {
+      var association = await _usersSuppliersRepository.GetUsersSuppliersByUserIdAsync(userId);
+
+      if (association == null)
+        return NotFound("Associazione utente-fornitore non trovata.");
+
+      return Ok(association.SupplierID);
+    }
+
+    [HttpGet("by-user/{userId}")]
+    public async Task<IActionResult> GetSupplierByUserId(int userId)
+    {
+      var supplier = await _supplierService.GetSupplierByUserIdAsync(userId);
+      if (supplier == null)
+        return NotFound();
+      return Ok(supplier);
+    }
+
+   }
+ }
+

@@ -1,15 +1,11 @@
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Warehouse.Common.DTOs;
 using Warehouse.Data.Models;
 using Warehouse.Interfaces.IRepositories;
 using Warehouse.Interfaces.IServices;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Warehouse.Services.Services;
 
-namespace Warehouse.Services
+namespace Warehouse.Service.Services
 {
   public class ProductService : GenericService<Products, DTOProduct>, IProductService
   {
@@ -53,5 +49,11 @@ namespace Warehouse.Services
       var products = await _productRepository.GetProductsByOrderIdAsync(orderId);
       return _mapper.Map<IEnumerable<DTOProduct>>(products);
     }
+    public async Task<IEnumerable<DTOProduct>> GetProductsByUserSupplierAsync(int userId)
+    {
+      var products = await _productRepository.GetProductsByUserSupplierAsync(userId);
+      return _mapper.Map<IEnumerable<DTOProduct>>(products);
+    }
+
   }
 }

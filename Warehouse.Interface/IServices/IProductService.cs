@@ -11,6 +11,8 @@ namespace Warehouse.Interfaces.IServices
     Task<IEnumerable<DTOProduct>> GetProductsByCategoryAsync(int categoryId);
     Task<DTOProduct?> GetProductDetailsAsync(int id);
     Task<IEnumerable<DTOProduct>> GetProductsByOrderIdAsync(int orderId);
+    Task<IEnumerable<DTOProduct>> GetProductsByUserSupplierAsync(int userId);
+
   }
 
 }

@@ -1,10 +1,20 @@
 using Warehouse.Data.Models;
-using System.Threading.Tasks; // Make sure you have this!
+using System.Threading.Tasks;  
 
 namespace Warehouse.Interfaces.IRepositories
 {
   public interface IUserRepository : IGenericRepository<Users>
   {
-    Task<Users> GetByEmailAsync(string email); // We expect to get a User back!
+    Task<Users> GetByEmailAsync(string email);
+    Task<Users?> GetByIdAsync(int userId);
+    Task<Users> ToggleStatusAsync(int userId);
+    Task AssociateSupplierAsync(int userId, int supplierId);
+    Task DissociateSupplierAsync(int userId, int supplierId);
+    Task ChangeRoleAsync(int userId, string newRole);
+    Task<List<Users>> GetUsersWithoutSupplierAsync();
+    Task<List<Users>> GetUsersWithSuppliersAsync();
+    Task<List<Users>> GetUsersBySupplierAsync(int supplierId);
+
+
   }
 }

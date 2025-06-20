@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Warehouse.Data.Models;
 using Warehouse.Interfaces.IRepositories;
 using System.Threading.Tasks;
+using Warehouse.Data;
+using Warehouse.Data.Repositories;
 
 namespace Warehouse.Repository.Repositories
 {
@@ -44,5 +46,25 @@ namespace Warehouse.Repository.Repositories
       _context.Entry(product).State = EntityState.Modified;
       await _context.SaveChangesAsync();
     }
+    public async Task<IEnumerable<Products>> GetByIdsAsync(IEnumerable<int> productIds)
+    {
+      return await _context.Products
+          .Where(p => productIds.Contains(p.ProductID))
+          .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Products>> GetProductsByUserSupplierAsync(int userId)
+    {
+      var userSupplier = await _context.UsersSuppliers
+          .FirstOrDefaultAsync(us => us.UserID == userId);
+
+      if (userSupplier == null)
+        return new List<Products>();
+
+      return await _context.Products
+          .Where(p => p.SupplierID == userSupplier.SupplierID)
+          .ToListAsync();
+    }
+
   }
 }
