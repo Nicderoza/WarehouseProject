@@ -22,6 +22,11 @@ namespace Warehouse.Repository.Repositories
     {
       return await _context.OrderStatuses.ToListAsync();
     }
+    public async Task<OrderStatus> GetByIdAsync(int id)
+    {
+      return await _context.OrderStatuses.FindAsync(id);
+    }
+
   }
 
 }

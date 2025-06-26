@@ -31,7 +31,7 @@ namespace Warehouse.Services.Services
   IGenericRepository<OrderStatus> orderStatusRepository,
   ICartRepository cartRepository,
   ICartService cartService,
-  WarehouseContext context 
+  WarehouseContext context
 
 ) : base(orderRepository, mapper, logger)
     {
@@ -97,7 +97,7 @@ namespace Warehouse.Services.Services
         totalAmount += product.Price * item.Quantity;
       }
 
-      var status = await _orderStatusRepository.FirstOrDefaultAsync(s => s.StatusName == "In Lavorazione");
+      var status = await _orderStatusRepository.FirstOrDefaultAsync(s => s.StatusName == "InLavorazione");
       if (status == null)
       {
         return BaseResponse<DTOOrder>.ErrorResponse("Stato 'In Lavorazione' non configurato nel database.", 500);
@@ -133,7 +133,10 @@ namespace Warehouse.Services.Services
         await _orderRepository.SaveChangesAsync();
         await _orderRepository.CommitTransactionAsync();
 
-        var dtoOrder = _mapper.Map<DTOOrder>(newOrder);
+        var savedOrder = await _orderRepository.GetOrderByIdAsync(newOrder.OrderID);
+        var dtoOrder = _mapper.Map<DTOOrder>(savedOrder);
+
+
         return BaseResponse<DTOOrder>.SuccessResponse(dtoOrder, "Ordine creato con successo.", 201);
       }
       catch (Exception ex)
@@ -180,7 +183,7 @@ namespace Warehouse.Services.Services
     }
 
 
-    public async Task<BaseResponse<IEnumerable<DTOOrder>>> GetOrdersBySupplierAsync(int  supplierId)
+    public async Task<BaseResponse<IEnumerable<DTOOrder>>> GetOrdersBySupplierAsync(int supplierId)
     {
       var orders = await _orderRepository.GetOrdersBySupplierAsync(supplierId);
       if (!orders.Any())
@@ -250,7 +253,7 @@ namespace Warehouse.Services.Services
         UserID = userId,
         OrderDate = DateTime.UtcNow,
         TotalAmount = totalAmount,
-        OrderStatusFkID = 1, 
+        OrderStatusFkID = 1,
         OrderItems = orderItems
       };
 
@@ -269,7 +272,7 @@ namespace Warehouse.Services.Services
 
       if (statusName == null)
       {
-        statusName = "Unknown"; // fallback per sicurezza
+        statusName = "Unknown"; 
       }
 
       var dtoOrder = new DTOOrder
@@ -302,4 +305,4 @@ namespace Warehouse.Services.Services
       };
     }
   }
- }
+}

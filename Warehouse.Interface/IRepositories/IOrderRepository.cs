@@ -18,6 +18,6 @@ namespace Warehouse.Interfaces.IRepositories
     Task CommitTransactionAsync();
     Task RollbackTransactionAsync();
     Task<List<OrderItems>> GetOrderItemsWithDetailsAsync(int orderId);
-
+    Task<Orders> CreateOrderAsync(Orders order);
   }
 }

@@ -36,21 +36,22 @@ namespace Warehouse.Repository.Repositories
     public async Task<Orders?> GetOrderByIdAsync(int orderId)
     {
       return await _context.Orders
-                           .Include(o => o.OrderStatus)
-                           .Include(o => o.OrderItems)
-                               .ThenInclude(oi => oi.Product)
-                                   .ThenInclude(p => p.Supplier)
-                           .Include(o => o.OrderItems)
-                               .ThenInclude(oi => oi.Product)
-                                   .ThenInclude(p => p.Category)
-                           .FirstOrDefaultAsync(o => o.OrderID == orderId);
+          .Include(o => o.OrderStatus)
+          .Include(o => o.OrderItems)
+              .ThenInclude(oi => oi.Product)
+                  .ThenInclude(p => p.Category)
+          .Include(o => o.OrderItems)
+              .ThenInclude(oi => oi.Product)
+                  .ThenInclude(p => p.Supplier)
+          .FirstOrDefaultAsync(o => o.OrderID == orderId);
     }
+
 
     public async Task<IEnumerable<Orders>> GetOrdersByUserIdAsync(int userId)
     {
       return await _context.Orders
                            .Where(o => o.UserID == userId)
-                     .Include(o => o.OrderStatus) 
+                     .Include(o => o.OrderStatus)
                      .Include(o => o.OrderItems)
                          .ThenInclude(oi => oi.Product)
                              .ThenInclude(p => p.Category)
@@ -61,7 +62,7 @@ namespace Warehouse.Repository.Repositories
     }
 
 
-    public async Task<IEnumerable<Orders>> GetOrdersBySupplierAsync(int  supplierId)
+    public async Task<IEnumerable<Orders>> GetOrdersBySupplierAsync(int supplierId)
     {
       return await _context.Orders
                            .Where(o => o.OrderItems.Any(oi => oi.Product != null &&
@@ -85,8 +86,7 @@ namespace Warehouse.Repository.Repositories
 
     public async Task<BaseResponse<DTOOrder>> CheckoutFromCartAsync(int userId)
     {
-      // Stub: Implement business logic for converting cart to order.
-      // Example response:
+
       return new BaseResponse<DTOOrder>
       {
         Success = false,
@@ -99,6 +99,13 @@ namespace Warehouse.Repository.Repositories
     {
       _context.Orders.Update(order);
       await _context.SaveChangesAsync();
+    }
+
+    public async Task<Orders> CreateOrderAsync(Orders order)
+    {
+      _context.Orders.Add(order);
+      await _context.SaveChangesAsync();
+      return order;
     }
 
     public async Task BeginTransactionAsync()

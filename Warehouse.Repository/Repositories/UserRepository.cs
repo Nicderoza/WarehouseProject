@@ -59,22 +59,23 @@ namespace Warehouse.Repository.Repositories
     }
 
 
-    public async Task ChangeRoleAsync(int userId, string newRoleName)
+    public async Task ChangeRoleAsync(int userId, int newRoleId)
     {
       var user = await _context.Users
-                   .Include(u => u.Role)
-                   .FirstOrDefaultAsync(u => u.UserID == userId)
-                 ?? throw new KeyNotFoundException("Utente non trovato");
+          .Include(u => u.Role)
+          .FirstOrDefaultAsync(u => u.UserID == userId)
+          ?? throw new KeyNotFoundException("Utente non trovato");
 
       var role = await _context.Roles
-                   .FirstOrDefaultAsync(r => r.RoleName == newRoleName)
-                 ?? throw new KeyNotFoundException("Ruolo non trovato");
+          .FirstOrDefaultAsync(r => r.RoleID == newRoleId)
+          ?? throw new KeyNotFoundException("Ruolo non trovato");
 
       user.Role = role;
       user.RoleID = role.RoleID;
 
       await _context.SaveChangesAsync();
     }
+
 
     public async Task<List<Users>> GetUsersWithSuppliersAsync()
     {
@@ -88,10 +89,10 @@ namespace Warehouse.Repository.Repositories
     {
       return await _context.Users
           .Where(u => !_context.UsersSuppliers.Any(us => us.UserID == u.UserID)
-                      && u.RoleID != 1
-                      && u.RoleID != 3)
+                      && u.RoleID == 3) // Solo clienti
           .ToListAsync();
     }
+
     public async Task<List<Users>> GetUsersBySupplierAsync(int supplierId)
     {
       return await _context.Users

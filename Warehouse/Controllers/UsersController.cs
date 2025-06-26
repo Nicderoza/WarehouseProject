@@ -5,7 +5,7 @@ using Warehouse.Interfaces.IServices;
 
 namespace Warehouse.WEB.Controllers
 {
-  [Route("api/[users]")]
+  [Route("api/users")]
   [ApiController]
   [Produces("application/json")]
   public class UsersController : ControllerBase
@@ -93,17 +93,13 @@ namespace Warehouse.WEB.Controllers
       return Ok();
     }
 
-
-
-
-
     [HttpPost("change-role")]
-
     public async Task<IActionResult> ChangeRole([FromBody] DTOChangeRole dto)
     {
-      await _userService.ChangeRoleAsync(dto.UserID, dto.NewRole);
+      await _userService.ChangeRoleAsync(dto.UserID, dto.NewRoleID);
       return Ok();
     }
+
 
     [HttpGet("by-user/{userId}")]
     public async Task<IActionResult> GetUser(int userId)
@@ -113,8 +109,8 @@ namespace Warehouse.WEB.Controllers
       return Ok(user);
     }
 
-    [HttpGet("without-supplier")]
-    public async Task<IActionResult> GetUsersWithoutSupplier()
+    [HttpGet("users-without-supplier")]
+    public async Task<IActionResult> GetUsersWithoutSupplierAsync()
     {
       var users = await _userService.GetUsersWithoutSupplierAsync();
       return Ok(users);
@@ -130,6 +126,10 @@ namespace Warehouse.WEB.Controllers
     public async Task<IActionResult> GetUsersBySupplier(int supplierId)
     {
       var users = await _userService.GetUsersBySupplierAsync(supplierId);
+      if (users == null)
+      {
+        return NotFound("No users found for supplier " + supplierId);
+      }
       return Ok(users);
     }
 

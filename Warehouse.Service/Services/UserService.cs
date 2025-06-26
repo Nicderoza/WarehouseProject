@@ -145,14 +145,15 @@ public class UserService : GenericService<Users, DTOUser>, IUserService
   }
 
 
-  public Task ChangeRoleAsync(int userId, string newRole)
-      => _userRepository.ChangeRoleAsync(userId, newRole);
+  public Task ChangeRoleAsync(int userId, int newRoleId)
+      => _userRepository.ChangeRoleAsync(userId, newRoleId);
 
   public async Task<List<DTOUser>> GetUsersWithoutSupplierAsync()
   {
     var users = await _userRepository.GetUsersWithoutSupplierAsync();
     return _mapper.Map<List<DTOUser>>(users);
   }
+
 
   public async Task<List<DTOUser>> GetUsersWithSuppliersAsync()
   {
