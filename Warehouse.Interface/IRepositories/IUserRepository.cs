@@ -10,7 +10,7 @@ namespace Warehouse.Interfaces.IRepositories
     Task<Users> ToggleStatusAsync(int userId);
     Task AssociateSupplierAsync(int userId, int supplierId);
     Task DissociateSupplierAsync(int userId, int supplierId);
-    Task ChangeRoleAsync(int userId, string newRole);
+    Task ChangeRoleAsync(int userId, int newRoleId);
     Task<List<Users>> GetUsersWithoutSupplierAsync();
     Task<List<Users>> GetUsersWithSuppliersAsync();
     Task<List<Users>> GetUsersBySupplierAsync(int supplierId);

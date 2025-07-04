@@ -4,5 +4,7 @@ namespace Warehouse.Interfaces.IRepositories
   {
     Task<OrderStatus?> GetByNameAsync(string statusName);
     Task<IEnumerable<OrderStatus>> GetAllAsync();
+    Task<OrderStatus> GetByIdAsync(int id);
+
   }
 }

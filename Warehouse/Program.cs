@@ -19,13 +19,11 @@ using Warehouse.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Connessione al database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<WarehouseContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Configura l'autenticazione JWT
 var jwtSettingSection = builder.Configuration.GetSection("Jwt");
 builder.Services.Configure<JwtSetting>(jwtSettingSection);
 
@@ -56,7 +54,6 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddAuthorization();
 
-// Configura AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddCors(options =>
@@ -83,6 +80,8 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUsersSuppliersRepository, UsersSuppliersRepository>();
+builder.Services.AddScoped<IFormStructureRepository, FormStructureRepository>();
+
 builder.Services.AddScoped<IPasswordHasher<Users>, PasswordHasher<Users>>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -93,6 +92,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+builder.Services.AddScoped<IFormStructureRepository, FormStructureRepository>();
+builder.Services.AddScoped<IFormStructureService, FormStructureService>();
 builder.Services.AddScoped<ILogger<ProductService>>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger<ProductService>());
 builder.Services.AddScoped<ILogger<CategoryService>>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger<CategoryService>());
 builder.Services.AddScoped<ILogger<SupplierService>>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger<SupplierService>());
@@ -111,7 +112,7 @@ builder.Services.AddScoped<ILogger<GenericService<Cart, DTOCartResponse>>>(provi
 builder.Services.AddScoped<ILogger<CartService>>(provider => provider.GetRequiredService<ILoggerFactory>().CreateLogger<CartService>());
 
 
-// Controller e Razor
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

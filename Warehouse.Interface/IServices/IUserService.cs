@@ -18,8 +18,7 @@ namespace Warehouse.Interfaces.IServices
     Task<DTOUser> ToggleStatusAsync(int userId);
     Task AssociateSupplierAsync(int userId, int supplierId);
     Task DissociateSupplierAsync(int userId, int supplierId);
-    Task ChangeRoleAsync(int userId, string newRole);
-
+    public Task ChangeRoleAsync(int userId, int newRoleId);
     Task<List<DTOUser>> GetUsersWithoutSupplierAsync();
     Task<List<DTOUser>> GetUsersWithSuppliersAsync();
     Task<List<DTOUser>> GetUsersBySupplierAsync(int supplierId);

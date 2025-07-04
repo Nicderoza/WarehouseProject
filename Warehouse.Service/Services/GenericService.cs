@@ -1,4 +1,3 @@
-// Warehouse.Service.Services/GenericService.cs
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Warehouse.Common.Responses;
@@ -51,13 +50,10 @@ namespace Warehouse.Service.Services
       _logger.LogInformation("Adding new entity of type {EntityType}", typeof(TEntity).Name);
       var entity = _mapper.Map<TEntity>(dto);
 
-      // Questa riga ora è corretta perché AddAsync restituisce TEntity
       var addedEntity = await _repository.AddAsync(entity);
 
-      // Salva le modifiche nel database dopo l'aggiunta
-      await _repository.SaveChangesAsync(); // Non stiamo controllando il risultato qui, il che è accettabile
+      await _repository.SaveChangesAsync(); 
 
-      // Mappa l'entità (ora con l'ID popolato) al DTO
       var resultDto = _mapper.Map<TDTO>(addedEntity);
 
       _logger.LogInformation("Successfully added new entity of type {EntityType}", typeof(TEntity).Name);
@@ -76,8 +72,7 @@ namespace Warehouse.Service.Services
       _mapper.Map(dto, existingEntity);
       await _repository.UpdateAsync(existingEntity);
 
-      // Salva le modifiche nel database dopo l'aggiornamento
-      await _repository.SaveChangesAsync(); // Non stiamo controllando il risultato qui, il che è accettabile
+      await _repository.SaveChangesAsync(); 
 
       var updatedDto = _mapper.Map<TDTO>(existingEntity);
       _logger.LogInformation("Successfully updated entity of type {EntityType} with ID {EntityId}", typeof(TEntity).Name, id);
@@ -95,8 +90,7 @@ namespace Warehouse.Service.Services
       }
       await _repository.DeleteAsync(id);
 
-      // Salva le modifiche nel database dopo l'eliminazione
-      await _repository.SaveChangesAsync(); // Non stiamo controllando il risultato qui, il che è accettabile
+      await _repository.SaveChangesAsync(); 
 
       _logger.LogInformation("Successfully deleted entity of type {EntityType} with ID {EntityId}", typeof(TEntity).Name, id);
       return BaseResponse<bool>.SuccessResponse(true, "Entità eliminata con successo.");

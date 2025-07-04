@@ -34,7 +34,7 @@ namespace Warehouse.Data.Repositories
     public virtual async Task<T> AddAsync(T entity)
     {
       var entry = await _dbSet.AddAsync(entity);
-      return entry.Entity; 
+      return entry.Entity;
     }
 
     public virtual Task UpdateAsync(T entity)
